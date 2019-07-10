@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   labels:
@@ -24,4 +24,7 @@ kind: Service
 metadata: 
   name: nginx-dns
 spec:
-   clusterIP: None      
+  selector:
+    nginx: nginx-dns     
+  clusterIP: None 
+
