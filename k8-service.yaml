@@ -1,12 +1,32 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  labels:
+    nginx: task2
+  name: replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      task: two
+  template:
+    metadata:
+      labels:
+        task: two
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: k8-service
 spec:
-  ports:
-  - port: 81
-    protocol: TCP
-    targetPort: 80
   selector:
-    app: nginx-pod
-  type: NodePort    
+    nginx: task2
+  ports:
+  - protocol: TCP
+    port: 81
+    targetPort: 80
