@@ -1,32 +1,33 @@
 apiVersion: v1
 kind: ReplicationController
-metadata: 
-  name: nginx-test
+metadata:
+  name: nginx 
   labels:
-    nginx: rc
+    name: nginx-test
 spec:
-  replicas: 1
+  replicas: 1 
   selector: 
-    name: nginxsvc
+    name: nginx-test
   template:
-     metadata:
-       labels:
-         name: nginxsvc
-     spec: 
-       containers: 
-       - name: nginx-test
-         image: nginx   
-         #       ports:
-         #  - containerPort: 80
+    metadata:
+      labels:
+        name: nginx-test
+
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80   
 ---
 apiVersion: v1
 kind: Service
-metadata: 
-  name: nginx-svc
+metadata:
+  name: ngnix-svc
 spec:
   selector:
-    nginx: rc
-  ports: 
+    name: nginx-test
+  ports:
   - protocol: TCP
     port: 80
-  type: NodePort
+  type: NodePort  
